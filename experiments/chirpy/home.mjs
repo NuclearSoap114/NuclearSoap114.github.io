@@ -27,3 +27,15 @@ export function renderHome({home,notes,topics,wallpaper,fragment,escape,base,ico
 export function renderHomePanel({notes,topics,tags,base,escape}) {
  return `<aside aria-label="笔记导航" id="panel-wrapper" class="col-xl-3 ps-2 text-muted ch-home-panel"><div class="ch-panel-sticky"><section><h2 class="panel-heading">笔记目录 <span>${notes.length}</span></h2><nav class="ch-panel-topics" aria-label="按主题查找">${topics.map(t=>`<a href="${base}/notes/?topic=${encodeURIComponent(t.id)}"><span>${escape(t.title)}</span><small>${notes.filter(n=>n.topic===t.id).length}</small></a>`).join('')}</nav></section><section><h2 class="panel-heading">按标签找</h2><div class="d-flex flex-wrap mt-3 mb-1">${tags.slice(0,9).map(t=>`<a class="post-tag btn btn-outline-primary" href="${base}/notes/?tag=${encodeURIComponent(t)}">${escape(t)}</a>`).join('')}</div></section><div class="ch-panel-bottom"><a href="${base}/archive/">浏览归档 <span aria-hidden="true">↗</span></a><p>算法、题解，还有课程里的知识点。</p></div></div></aside>`;
 }
+
+// Homepage recommendations can differ between editions; keep this existing Chirpy pick.
+export function applyChirpyPickOverrides(home,notes) {
+ const note=notes.find(n=>n.title==='全概率与贝叶斯');
+ if(!note)throw new Error('Missing Chirpy probability recommendation');
+ const card=home('.home-more').last();
+ card.attr('href',note.url).attr('class','home-article home-more home-probability');
+ card.find('h3').text(note.title);
+ card.find('.home-article-meta').text('概率与统计 · 条件概率');
+ card.find('.home-more-copy p').text('从样本空间的划分出发，整理全概率公式、贝叶斯公式及两者的关系。');
+ card.find('.home-mini-art').html('<span>P(A | B)</span><span class="home-probability-arrow">↔</span><span>P(B | A)</span>');
+}
