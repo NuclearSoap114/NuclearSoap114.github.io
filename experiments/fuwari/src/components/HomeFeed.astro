@@ -23,8 +23,8 @@ const [lead,...rest]=picks;
   <div class="home-feature-grid">
    <a href={lead.url} class="home-feature home-article" data-home-article>
     <span class="home-article-meta">{lead.label}</span>
-    <div class="home-dp-art" aria-hidden="true"><span class="home-art-label">0 / 1 KNAPSACK</span><div class="home-dp-cells">{[0,0,3,4,4,7,8,9,11,11,14,15].map((n,i)=><span class:list={{filled:i>6}}>{n}</span>)}</div><code>dp[j] = max(dp[j], dp[j - w] + v)</code></div>
-    <div class="home-feature-copy"><h3>{lead.title}</h3><p>{lead.description}</p><span class="home-read">读这篇笔记 <Icon name="material-symbols:arrow-forward-rounded"/></span></div>
+    <div class="home-feature-art" aria-hidden="true"><span class="home-art-label">列状态 × 转移矩阵</span><div class="home-color-grid">{[0,1,2,0,1,2,0,1,2,0,1,2].map(color=><span class={`color-${color}`}>{color}</span>)}</div><code>f(m) = f(1) · T^(m−1)</code></div>
+    <div class="home-feature-copy"><h3>{lead.title.includes('：')?<>{lead.title.split('：')[0]}：<span class="home-feature-subtitle">{lead.title.split('：').slice(1).join('：')}</span></>:lead.title}</h3><p>{lead.description}</p><span class="home-read">读这篇笔记 <Icon name="material-symbols:arrow-forward-rounded"/></span></div>
    </a>
    <div class="home-feature-aside">{rest.slice(0,2).map((pick,i)=><a href={pick.url} class={`home-article home-short home-tone-${i}`} data-home-article><span class="home-article-meta">{pick.label}</span><h3>{pick.title}</h3><p>{pick.description}</p><span class="home-read">阅读全文 <Icon name="material-symbols:arrow-forward-rounded"/></span><span class="home-number" aria-hidden="true">0{i+2}</span></a>)}</div>
   </div>
