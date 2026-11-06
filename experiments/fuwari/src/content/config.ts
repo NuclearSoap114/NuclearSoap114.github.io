@@ -22,7 +22,13 @@ const postsCollection = defineCollection({
 const specCollection = defineCollection({
 	schema: z.object({}),
 });
+const notesCollection = defineCollection({
+  schema: z.object({
+    title: z.string(), series: z.string(), subject: z.string(), section: z.string(), order: z.number(),
+  }),
+});
 export const collections = {
+  notes: notesCollection,
 	posts: postsCollection,
 	spec: specCollection,
 };

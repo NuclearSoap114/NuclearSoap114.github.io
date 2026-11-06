@@ -1,25 +1,20 @@
 ---
-
-import { getEntry, render } from "astro:content";
-import Markdown from "@components/misc/Markdown.astro";
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
-import MainGridLayout from "../layouts/MainGridLayout.astro";
-
-const aboutPost = await getEntry("spec", "about");
-
-if (!aboutPost) {
-	throw new Error("About page content not found");
-}
-
-const { Content } = await render(aboutPost);
+import { getEntry, render } from 'astro:content';
+import Markdown from '@components/misc/Markdown.astro';
+import ImageWrapper from '../components/misc/ImageWrapper.astro';
+import PublicContacts from '../components/PublicContacts.astro';
+import MainGridLayout from '../layouts/MainGridLayout.astro';
+import { profileConfig } from '../config';
+import '../styles/notebook.css';
+const about=await getEntry('spec','about');
+if(!about)throw new Error('Missing about content');
+const { Content }=await render(about);
 ---
-<MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
-        </div>
-    </div>
+<MainGridLayout title="关于" description="NuclearSoap114 的个人介绍、学习笔记与公开联系方式。">
+ <article class="notebook notebook-card" data-pagefind-body>
+  <span class="notebook-kicker">关于我</span>
+  <div class="profile-heading"><ImageWrapper src={profileConfig.avatar || ''} alt="NuclearSoap114 的 GitHub 头像" class="profile-avatar"/><div><h1 data-pagefind-meta="title">{profileConfig.name}</h1><p>{profileConfig.bio}</p></div></div>
+  <PublicContacts />
+  <Markdown class="about-copy"><Content /></Markdown>
+ </article>
 </MainGridLayout>

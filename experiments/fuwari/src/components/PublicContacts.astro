@@ -1,0 +1,12 @@
+---
+import { Icon } from 'astro-icon/components';
+import { profileConfig, welcomeContacts } from '../config';
+---
+<div class="profile-links" aria-label="公开主页与联系方式">
+ <a href="https://github.com/NuclearSoap114" target="_blank" rel="noopener noreferrer"><Icon name="fa6-brands:github"/><span><small>GitHub</small><strong>{profileConfig.name}</strong></span></a>
+ <a href={`https://codeforces.com/profile/${welcomeContacts.codeforces}`} target="_blank" rel="noopener noreferrer"><Icon name="material-symbols:leaderboard-outline-rounded"/><span><small>Codeforces</small><strong>{welcomeContacts.codeforces}</strong></span></a>
+ <a href={`mailto:${welcomeContacts.email}`}><Icon name="material-symbols:mail-outline-rounded"/><span><small>邮箱</small><strong>{welcomeContacts.email}</strong></span></a>
+ <button type="button" data-copy-qq={welcomeContacts.qq} aria-label={`复制 QQ 号 ${welcomeContacts.qq}`}><Icon name="fa6-brands:qq"/><span><small>QQ · 点击复制</small><strong>{welcomeContacts.qq}</strong></span></button>
+</div>
+<p id="profile-copy-status" class="profile-copy-status" role="status"></p>
+

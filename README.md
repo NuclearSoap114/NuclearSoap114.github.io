@@ -35,3 +35,9 @@ npm run preview
 `public/preview/fuwari/` 保存之前已分享的对照预览，构建时一并保留。旧博客的 `content/`、`site.json` 和根目录旧静态文件不再用于主站构建。
 
 欢迎页使用 GitHub 公开头像，以及用户明确同意展示的邮箱、QQ、Codeforces（见 config.ts 的 welcomeContacts）；未加入其他个人资料。欢迎页在动画画布准备好后再退出，避免完整页面先闪现再重建。
+
+## 学习笔记
+
+笔记正文在 `experiments/fuwari/src/content/notes/`，按集训、课程、专题归档。新增笔记需填写 title、series、subject、section、order；文件路径决定默认网址，也可用 slug 固定网址。目录、搜索、相邻笔记和站点地图随构建更新。
+
+本批整理了 210 篇正文：37 篇暑假集训、173 篇期末复习。Obsidian 链接已转换，公式与代码保留；本地路径、学校名称及疑似真实学号已处理。参考 PDF、Word、压缩包与原始 Obsidian 文件未上传。空白页及仅有缺失截图的页面未发布，网络流笔记的一张缺失配图保留文字说明。

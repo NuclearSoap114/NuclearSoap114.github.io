@@ -1,0 +1,27 @@
+---
+import MainGridLayout from '../../layouts/MainGridLayout.astro';
+import { getNotes,noteUrl,subjectIds } from '../../utils/notes';
+import '../../styles/notebook.css';
+const notes=await getNotes();
+const series=[{name:'2026 暑假集训',id:'summer',description:'算法专题、多校补题和做题复盘。'},{name:'大二下期末复习',id:'semester',description:'按课程整理的知识点、例题和复习提纲。'}];
+---
+<MainGridLayout title="笔记" description="2026 暑假集训与大二下期末复习笔记。">
+ <note-directory class="notebook" id="notebook-index">
+  <section class="notebook-card">
+   <span class="notebook-kicker">学习记录</span><h1 data-pagefind-meta="title">笔记</h1>
+   <p class="notebook-lead">做题时留下的思路，复习时整理的知识点。按专题放在这里，方便以后回来查。</p>
+   <div class="notebook-collections">{series.map(s=><a class="notebook-collection" href={`#${s.id}`}><strong>{s.name}</strong><span>{notes.filter(n=>n.data.series===s.name).length} 篇 · {s.description}</span></a>)}</div>
+   <div class="notes-filter"><label for="notes-query">找一篇笔记</label><input id="notes-query" type="search" placeholder="标题、课程或专题，例如：背包、概率论" autocomplete="off"/><p id="notes-count" role="status">共 {notes.length} 篇笔记，点击专题展开目录。</p></div>
+  </section>
+  {series.map(s=><section class="notes-series" id={s.id} data-series>
+   <h2>{s.name}</h2>
+   {[...new Set(notes.filter(n=>n.data.series===s.name).map(n=>n.data.subject))].map(subject=>{
+    const entries=notes.filter(n=>n.data.series===s.name&&n.data.subject===subject);
+    return <details class="notes-subject" id={subjectIds[subject]}><summary>{subject}<span>{entries.length} 篇</span></summary>
+     {[...new Set(entries.map(n=>n.data.section))].map(section=><div class="notes-section"><h3>{section}</h3>{entries.filter(n=>n.data.section===section).map(n=><a class="notes-row" data-note data-search={`${n.data.title} ${subject} ${section} ${s.name}`} href={noteUrl(n.slug)}>{n.data.title}</a>)}</div>)}
+    </details>;
+   })}
+  </section>)}
+ </note-directory>
+</MainGridLayout>
+
