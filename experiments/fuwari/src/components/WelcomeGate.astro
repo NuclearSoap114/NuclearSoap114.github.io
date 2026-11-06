@@ -7,9 +7,9 @@ import ImageWrapper from './misc/ImageWrapper.astro';
   <div class="welcome-shell">
     <div class="welcome-card">
       <div class="welcome-content">
-        <div class="welcome-brand"><span class="welcome-brand-icon"><Icon name="material-symbols:home-outline-rounded" /></span><span>个人博客</span><span class="welcome-brand-note">文字与想法，慢慢生长</span></div>
+        <div class="welcome-brand"><span class="welcome-brand-icon"><Icon name="material-symbols:home-outline-rounded" /></span><span>个人博客</span><span class="welcome-brand-note">算法 · 题解 · 课程笔记</span></div>
         <div class="welcome-profile"><ImageWrapper src={profileConfig.avatar || ""} alt="" class="welcome-avatar" /><div><span class="welcome-eyebrow">你好，我是</span><h1 id="welcome-title">{profileConfig.name}<span>。</span></h1></div></div>
-        <p id="welcome-description">{profileConfig.bio}<br /><span>把值得留下的瞬间，写在这里。</span></p>
+        <p id="welcome-description">{profileConfig.bio}</p>
         <div class="welcome-contacts" aria-label="我的公开主页与联系方式">
           <a href="https://github.com/NuclearSoap114" target="_blank" rel="noopener noreferrer"><Icon name="fa6-brands:github" /><span><small>GitHub</small><strong>NuclearSoap114</strong></span><Icon name="material-symbols:arrow-outward-rounded" /></a>
           <a href={`https://codeforces.com/profile/${welcomeContacts.codeforces}`} target="_blank" rel="noopener noreferrer"><Icon name="material-symbols:leaderboard-outline-rounded" /><span><small>Codeforces</small><strong>{welcomeContacts.codeforces}</strong></span><Icon name="material-symbols:arrow-outward-rounded" /></a>
@@ -26,10 +26,10 @@ import ImageWrapper from './misc/ImageWrapper.astro';
       </div>
       <div class="welcome-art" aria-hidden="true">
         <ImageWrapper src={siteConfig.banner.src} alt="" class="welcome-art-image" />
-        <span class="welcome-art-label">NUCLEARSOAP114 / NOTES</span><div class="welcome-art-caption"><span class="welcome-art-line"></span><p>保持好奇，<br />慢慢生长<span>。</span></p><span class="welcome-art-subtitle">一些想法，一些新的开始。</span></div>
+        <span class="welcome-art-label">NUCLEARSOAP / NOTES</span><div class="welcome-art-caption"><span class="welcome-art-line"></span><p>随便翻翻<span>。</span></p><span class="welcome-art-subtitle">NuclearSoap 的笔记本</span></div>
       </div>
     </div>
-    <p class="welcome-footer">欢迎来坐坐，随意翻翻。</p>
+    <p class="welcome-footer">NuclearSoap · 个人博客</p>
   </div>
 </section>
 <button id="blog-replay" class="blog-replay" type="button" hidden data-pagefind-ignore data-blog-overlay aria-label="从页面顶部重播搭建动画"><Icon name="material-symbols:replay-rounded" /><span>重播动画</span></button>

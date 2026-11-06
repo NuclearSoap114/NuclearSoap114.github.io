@@ -8,8 +8,8 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "NuclearSoap114",
-	subtitle: "文字与想法，慢慢生长",
+	title: "NuclearSoap",
+	subtitle: "算法与课程笔记",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 245, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -55,8 +55,8 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar: "/avatar-github.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "NuclearSoap114",
-	bio: "记录想法、学习与生活。",
+	name: "NuclearSoap",
+	bio: "怕忘，先记下来。",
 	links: [
         { name: "GitHub", icon: "fa6-brands:github", url: "https://github.com/NuclearSoap114" },
     ],};

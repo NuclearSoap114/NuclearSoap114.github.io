@@ -1,4 +1,4 @@
-# NuclearSoap114 的博客
+# NuclearSoap 的博客
 
 主站：https://nuclearsoap114.github.io/
 
@@ -6,7 +6,7 @@
 
 ## 写文章
 
-在 `experiments/fuwari/src/content/posts/` 添加 Markdown 文件，参考 `markdown-extended.md` 的标题、日期、摘要和标签格式。设置 `draft: false` 后会出现在网站上；公开仓库中的草稿源文件也能被别人看到。
+在 `experiments/fuwari/src/content/posts/` 添加 Markdown 文件，参考 `markdown-extended.md` 的标题、日期、摘要和标签格式。设置 `draft: false` 后会出现在归档和搜索中；首页由 `HomeFeed.astro` 单独选取笔记，不自动展示文章列表。公开仓库中的草稿源文件也能被别人看到。
 
 - 博客名称、头像、简介、菜单：`experiments/fuwari/src/config.ts`
 - 关于页面：`experiments/fuwari/src/content/spec/about.md`

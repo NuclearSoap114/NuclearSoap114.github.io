@@ -10,10 +10,10 @@ const about=await getEntry('spec','about');
 if(!about)throw new Error('Missing about content');
 const { Content }=await render(about);
 ---
-<MainGridLayout title="关于" description="NuclearSoap114 的个人介绍、学习笔记与公开联系方式。">
+<MainGridLayout title="关于" description="NuclearSoap 的个人介绍、学习笔记与公开联系方式。">
  <article class="notebook notebook-card" data-pagefind-body>
   <span class="notebook-kicker">关于我</span>
-  <div class="profile-heading"><ImageWrapper src={profileConfig.avatar || ''} alt="NuclearSoap114 的 GitHub 头像" class="profile-avatar"/><div><h1 data-pagefind-meta="title">{profileConfig.name}</h1><p>{profileConfig.bio}</p></div></div>
+  <div class="profile-heading"><ImageWrapper src={profileConfig.avatar || ''} alt="NuclearSoap 的 GitHub 头像" class="profile-avatar"/><div><h1 data-pagefind-meta="title">{profileConfig.name}</h1><p>{profileConfig.bio}</p></div></div>
   <PublicContacts />
   <Markdown class="about-copy"><Content /></Markdown>
  </article>
