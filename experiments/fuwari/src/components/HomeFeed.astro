@@ -24,18 +24,25 @@ const [lead,...rest]=picks;
   <div class="home-feature-grid">
    <a href={lead.url} class="home-feature home-article" data-home-article>
     <span class="home-article-meta">{lead.label}</span>
-    <div class="home-feature-art" aria-hidden="true"><span class="home-art-label">列状态 × 转移矩阵</span><div class="home-color-grid">{[0,1,2,0,1,2,0,1,2,0,1,2].map(color=><span class={`color-${color}`}>{color}</span>)}</div><div class="home-state-flow"><span>f(k)</span><i>→</i><b>T</b><i>→</i><span>f(k + 1)</span></div><code>f(m) = f(1) · T^(m−1)</code></div>
+    <div class="home-feature-art" role="img" aria-label="矩阵快速幂：连续平方得到 T、T 的二次方、四次方和八次方，再组合 T 的八次方、四次方和一次方，得到 T 的十三次方。">
+     <span class="home-art-label" aria-hidden="true">列状态 × 转移矩阵 <span class="home-demo-hint">悬停演示</span></span>
+     <div class="home-color-grid" aria-hidden="true">{[0,1,2,0,1,2,0,1,2,0,1,2].map((color,i)=><span class={`color-${color} home-compute-step`} style={`--step-delay:${(i%4)*.65}s`}>{color}</span>)}</div>
+     <div class="home-power-flow" aria-hidden="true">{['T','T²','T⁴','T⁸'].map((power,i)=><><b class="home-compute-step" style={`--step-delay:${i*.65}s`}>{power}</b>{i<3&&<span>→</span>}</>)}</div>
+     <div class="home-demo-result home-power-result" style="--result-delay:2.6s" aria-hidden="true"><code>T¹³ = T⁸ · T⁴ · T</code><small>13 = 8 + 4 + 1</small></div>
+    </div>
     <div class="home-feature-copy"><h3>{lead.title.includes('：')?<>{lead.title.split('：')[0]}：<span class="home-feature-subtitle">{lead.title.split('：').slice(1).join('：')}</span></>:lead.title}</h3><p>{lead.description}</p><span class="home-read">读这篇笔记 <Icon name="material-symbols:arrow-forward-rounded"/></span></div>
    </a>
    <div class="home-feature-aside">{rest.slice(0,2).map((pick,i)=><a href={pick.url} class={`home-article home-short home-tone-${i}`} data-home-article>
     <span class="home-article-meta">{pick.label}<span class="home-card-index" aria-hidden="true">0{i+2}</span></span>
-    {pick.motif==='sieve' ? <div class="home-note-art home-number-art" role="img" aria-label="1 到 12 中，1、5、7、11 与 12 互质，因此欧拉函数 φ(12) 等于 4。12 有平方因子 4，因此莫比乌斯函数 μ(12) 等于 0。">
-     <div class="home-number-strip" aria-hidden="true">{Array.from({length:12},(_,i)=>i+1).map(n=><span class:list={{'is-coprime':[1,5,7,11].includes(n)}}>{n}</span>)}</div>
-     <div class="home-art-equations" aria-hidden="true"><span>φ(12) = <b>4</b></span><span>12 = 2² × 3 <i>→</i> μ(12) = <b>0</b></span></div>
-    </div> : <div class="home-note-art home-xor-art" role="img" aria-label="二进制 101 与 011 按位异或，得到 110。">
-     <div class="home-bit-expression" aria-hidden="true">{['101','⊕','011','=','110'].map((part,j)=>part.length===3 ? <span class:list={['home-bit-word',{'is-result':j===4}]}>{part.split('').map(bit=><b class:list={{'is-one':bit==='1'}}>{bit}</b>)}</span> : <span class="home-bit-operator">{part}</span>)}</div>
-     <div class="home-xor-caption" aria-hidden="true"><span>按位异或</span><span>相同为 0，不同为 1</span></div>
+    {pick.motif==='sieve' ? <div class="home-note-art home-number-art" role="img" aria-label="以欧拉函数为例进行莫比乌斯反演：对 12 的各个约数 d，累加 μ(d) 乘以 12 除以 d，得到 12 减 6 减 4 加 0 加 2 加 0，结果为 4。">
+     <div class="home-demo-caption" aria-hidden="true"><span>约数 d / μ(d) · 12/d</span><span class="home-demo-hint">悬停演示</span></div>
+     <div class="home-mobius-terms" aria-hidden="true">{[{d:1,v:'12'},{d:2,v:'−6'},{d:3,v:'−4'},{d:4,v:'0'},{d:6,v:'+2'},{d:12,v:'0'}].map((term,j)=><span class="home-compute-step" style={`--step-delay:${j*.42}s`}><small>{term.d}</small><b>{term.v}</b></span>)}</div>
+     <div class="home-art-equations home-demo-result" style="--result-delay:2.52s" aria-hidden="true"><span>φ(12) = Σ μ(d) · 12/d</span><b>= 4</b></div>
+    </div> : <div class="home-note-art home-xor-art" role="img" aria-label="二进制 101 与 011 按位异或：1 异或 0 为 1，0 异或 1 为 1，1 异或 1 为 0，得到 110。">
+     <div class="home-bit-expression" aria-hidden="true">{['101','⊕','011','=','110'].map((part,j)=>part.length===3 ? <span class:list={['home-bit-word',{'is-result':j===4}]}>{part.split('').map((bit,k)=><b class:list={['home-compute-step',{'is-one':bit==='1','home-bit-result':j===4}]} style={`--step-delay:${k*.8}s`}>{bit}</b>)}</span> : <span class="home-bit-operator">{part}</span>)}</div>
+     <div class="home-xor-caption" aria-hidden="true"><span class="home-demo-result" style="--result-delay:2.4s">相同为 0，不同为 1</span><span class="home-demo-hint">悬停演示</span></div>
     </div>}
+
     <h3>{pick.title}</h3><p>{pick.description}</p><span class="home-read">阅读全文 <Icon name="material-symbols:arrow-forward-rounded"/></span>
    </a>)}</div>
   </div>
