@@ -1,7 +1,7 @@
 ---
 import { getNotes,getNoteTagCounts,tagUrl } from '../../utils/notes';
 import WidgetLayout from './WidgetLayout.astro';
-const tags=getNoteTagCounts(await getNotes()).filter(t=>t.name!=='期末复习'&&t.name!=='算法竞赛');
+const tags=getNoteTagCounts(await getNotes()).filter(t=>t.name!=='算法竞赛');
 interface Props { class?: string; style?: string; }
 ---
 <WidgetLayout name="主题标签" id="tags" class={Astro.props.class} style={Astro.props.style}>

@@ -1,8 +1,9 @@
 ---
+public: true
 title: "IO 方式与中断"
 series: "大二下期末复习"
 subject: "计算机组成原理"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/computer-organization/notes/io-方式与中断"
 order: 119
 ---

@@ -1,4 +1,5 @@
 ---
+public: true
 title: "位置 DP 与步长偏移"
 series: "2026 暑假集训"
 subject: "算法与竞赛"

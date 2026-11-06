@@ -1,4 +1,5 @@
 ---
+public: true
 title: "CPU 结构、寄存器与指令执行"
 series: "大二下期末复习"
 subject: "计算机组成原理"

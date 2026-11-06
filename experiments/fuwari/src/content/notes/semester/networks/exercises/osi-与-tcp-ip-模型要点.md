@@ -1,8 +1,9 @@
 ---
+public: true
 title: "OSI 与 TCP/IP 模型要点"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "考试题整理"
+section: "习题解析"
 slug: "semester/networks/exercises/osi-与-tcp-ip-模型要点"
 order: 182
 ---

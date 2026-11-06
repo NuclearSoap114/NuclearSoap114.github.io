@@ -1,14 +1,14 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { profileConfig } from '../../config';
-import { getNotes } from '../../utils/notes';
+import { getNotes, getNoteTopics } from '../../utils/notes';
 import ImageWrapper from '../misc/ImageWrapper.astro';
 const notes=await getNotes();
-const subjects=new Set(notes.map(n=>n.data.subject)).size;
+const topicCount=getNoteTopics(notes).length;
 ---
 <section class="card-base sidebar-profile">
  <a href="/about/" class="sidebar-avatar" aria-label="关于 NuclearSoap114"><ImageWrapper src={profileConfig.avatar||''} alt="NuclearSoap114 的头像"/></a>
  <a class="sidebar-name" href="/about/">{profileConfig.name}</a><p>{profileConfig.bio}</p>
- <div class="profile-stats"><a href="/notes/"><strong>{notes.length}</strong><span>篇笔记</span></a><a href="/notes/"><strong>{subjects}</strong><span>个专题</span></a></div>
+ <div class="profile-stats"><a href="/notes/"><strong>{notes.length}</strong><span>篇笔记</span></a><a href="/notes/"><strong>{topicCount}</strong><span>个专题</span></a></div>
  <a class="profile-github" href="https://github.com/NuclearSoap114" target="_blank" rel="me noopener noreferrer"><Icon name="fa6-brands:github"/>GitHub<Icon name="material-symbols:arrow-outward-rounded"/></a>
 </section>

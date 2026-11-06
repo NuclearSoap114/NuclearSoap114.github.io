@@ -1,31 +1,39 @@
 ---
+import { Icon } from 'astro-icon/components';
 import MainGridLayout from '../../layouts/MainGridLayout.astro';
-import { getNotes,noteUrl,subjectIds,getNoteTags,getNoteTagCounts,getAlgorithmCategories } from '../../utils/notes';
+import { getNotes,noteUrl,getNoteTopics,getNoteTags,getNoteTagCounts,getAlgorithmCategories } from '../../utils/notes';
 import '../../styles/notebook.css';
 const notes=await getNotes();
+const topics=getNoteTopics(notes);
 const tags=getNoteTagCounts(notes);
 const categories=getAlgorithmCategories(notes);
-const series=[{name:'2026 暑假集训',id:'summer',description:'算法、tricker、题解与学习记录。'},{name:'大二下期末复习',id:'semester',description:'按课程整理的知识点、例题和复习提纲。'}];
-function groupsFor(seriesName:string){
- if(seriesName==='2026 暑假集训')return categories.map(c=>({name:c.name,id:c.id,entries:notes.filter(n=>n.data.series===seriesName&&n.data.section===c.name),algorithm:true}));
- return [...new Set(notes.filter(n=>n.data.series===seriesName).map(n=>n.data.subject))].map(subject=>({name:subject,id:subjectIds[subject],entries:notes.filter(n=>n.data.series===seriesName&&n.data.subject===subject),algorithm:false}));
+function groupsFor(topic: typeof topics[number]) {
+ const entries=notes.filter(n=>topic.subjects.includes(n.data.subject));
+ if(topic.id==='algorithms')return categories.map(c=>({name:c.name,id:c.id,entries:entries.filter(n=>n.data.section===c.name)}));
+ if(topic.id==='political-theory')return topic.subjects.map(subject=>({name:subject,id:subject==='毛概'?'mao-theory':'xi-theory',entries:entries.filter(n=>n.data.subject===subject)}));
+ return [...new Set(entries.map(n=>n.data.section))].map((section,i)=>({name:section,id:`${topic.id}-${i}`,entries:entries.filter(n=>n.data.section===section)}));
 }
 ---
-<MainGridLayout title="笔记" description="2026 暑假集训与大二下期末复习笔记。">
+<MainGridLayout title="笔记" description="按算法、计算机基础、数学与思政理论整理的公开笔记。">
  <note-directory class="notebook" id="notebook-index">
   <section class="notebook-card">
-   <span class="notebook-kicker">学习记录</span><h1 data-pagefind-meta="title">笔记</h1>
-   <p class="notebook-lead">做题时留下的思路，复习时整理的知识点。按专题放在这里，方便以后回来查。</p>
-   <div class="notebook-collections">{series.map(s=><a class="notebook-collection" href={`#${s.id}`}><strong>{s.name}</strong><span>{notes.filter(n=>n.data.series===s.name).length} 篇 · {s.description}</span></a>)}</div>
-   <div class="notes-category-filter" role="group" aria-label="算法笔记分类"><span>算法笔记</span><button type="button" data-filter-category="" aria-pressed="true">不限分类</button>{categories.map(c=><button type="button" data-filter-category={c.name} aria-pressed="false">{c.name}<small>{c.count}</small></button>)}</div>
-   <div class="notes-filter"><label for="notes-query">找一篇笔记</label><input id="notes-query" type="search" placeholder="标题、课程或专题，例如：背包、概率论" autocomplete="off"/></div>
+   <span class="notebook-kicker">按主题浏览</span><h1 data-pagefind-meta="title">笔记</h1>
+   <p class="notebook-lead">算法与题解，课程里的知识点。按内容分类，找起来更方便。</p>
+   <div class="note-topic-filter" role="group" aria-label="笔记主题">
+    {topics.map(topic=><button type="button" data-filter-topic={topic.id} data-topic-title={topic.title} aria-pressed="false"><Icon name={topic.icon}/><span>{topic.title}</span><small>{topic.count} 篇</small></button>)}
+    <button type="button" data-filter-topic="" data-topic-title="全部主题" aria-pressed="true"><Icon name="material-symbols:grid-view-outline-rounded"/><span>全部主题</span><small>{notes.length} 篇</small></button>
+   </div>
+   <div class="notes-category-filter" role="group" aria-label="算法笔记分类"><span>算法分类</span><button type="button" data-filter-category="" aria-pressed="true">不限分类</button>{categories.map(c=><button type="button" data-filter-category={c.name} aria-pressed="false">{c.name}<small>{c.count}</small></button>)}</div>
+   <div class="notes-filter"><label for="notes-query">找一篇笔记</label><input id="notes-query" type="search" placeholder="搜索标题或知识点，例如：背包、TCP" autocomplete="off"/></div>
    <div class="note-tag-filter" role="group" aria-label="按标签筛选"><button type="button" data-filter-tag="" aria-pressed="true">全部标签</button>{tags.map(t=><button type="button" data-filter-tag={t.name} aria-pressed="false">{t.name}<small>{t.count}</small></button>)}</div>
-   <div class="notes-filter-summary"><p id="notes-count" role="status">共 {notes.length} 篇笔记，点击专题展开目录。</p><button id="notes-clear" type="button" hidden>清除筛选</button></div>
+   <div class="notes-filter-summary"><p id="notes-count" role="status">共 {notes.length} 篇笔记，点击分类展开目录。</p><button id="notes-clear" type="button" hidden>清除筛选</button></div>
   </section>
-  {series.map(s=><section class="notes-series" id={s.id} data-series>
-   <h2 id={s.id==='summer'?'algorithms':undefined}>{s.name}</h2>
-   {groupsFor(s.name).map(group=><details class="notes-subject" id={group.id}><summary>{group.name}<span>{group.entries.length} 篇</span></summary>
-    {[...new Set(group.entries.map(n=>n.data.section))].map(section=><div class="notes-section">{!group.algorithm&&<h3>{section}</h3>}{group.entries.filter(n=>n.data.section===section).map(n=><a class="notes-row" data-tags={JSON.stringify(getNoteTags(n))} data-category={group.algorithm?section:''} data-note data-search={`${n.data.title} ${n.data.subject} ${section} ${s.name} ${getNoteTags(n).join(' ')}`} href={noteUrl(n.slug)}>{n.data.title}</a>)}</div>)}
+  <p id="notes-empty" class="notebook-card notes-empty" hidden>没有找到符合条件的笔记，可以换个关键词或清除筛选。</p>
+  {topics.map(topic=><section class="notes-series notes-topic-section" data-topic-section={topic.id}>
+   {topic.id==='algorithms'&&<span id="summer" class="note-legacy-anchor"/>}{topic.id==='networks'&&<span id="semester" class="note-legacy-anchor"/>}
+   <h2 id={topic.id}>{topic.title}<small>{topic.count} 篇</small></h2>
+   {groupsFor(topic).map(group=><details class="notes-subject" id={group.id}><summary>{group.name}<span>{group.entries.length} 篇</span></summary>
+    <div class="notes-section">{group.entries.length===0&&<p class="notes-empty-group">暂时没有公开笔记。</p>}{group.entries.map(n=><a class="notes-row" data-tags={JSON.stringify(getNoteTags(n))} data-topic={topic.id} data-category={topic.id==='algorithms'?n.data.section:''} data-note data-search={`${n.data.title} ${n.data.subject} ${n.data.section} ${topic.title} ${getNoteTags(n).join(' ')}`} href={noteUrl(n.slug)}>{n.data.title}</a>)}</div>
    </details>)}
   </section>)}
  </note-directory>

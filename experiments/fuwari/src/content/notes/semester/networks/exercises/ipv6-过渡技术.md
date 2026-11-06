@@ -1,8 +1,9 @@
 ---
+public: true
 title: "IPv6 过渡技术"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "考试题整理"
+section: "习题解析"
 slug: "semester/networks/exercises/ipv6-过渡技术"
 order: 181
 ---

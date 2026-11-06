@@ -1,4 +1,5 @@
 ---
+public: true
 title: "存储器基础与 Cache"
 series: "大二下期末复习"
 subject: "计算机组成原理"

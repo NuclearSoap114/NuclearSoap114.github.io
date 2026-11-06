@@ -1,4 +1,5 @@
 ---
+public: true
 title: "VLAN"
 series: "大二下期末复习"
 subject: "计算机网络"

@@ -1,8 +1,9 @@
 ---
+public: true
 title: "CRC 循环冗余校验"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/networks/exercises/crc-循环冗余校验"
 order: 169
 ---

@@ -1,8 +1,9 @@
 ---
+public: true
 title: "补充大题（Cache+微指令+进位链）"
 series: "大二下期末复习"
 subject: "计算机组成原理"
-section: "复习笔记"
+section: "基础知识"
 slug: "semester/computer-organization/notes/补充大题-cache与微指令与进位链"
 order: 112
 ---

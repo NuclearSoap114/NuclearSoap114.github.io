@@ -1,8 +1,9 @@
 ---
+public: true
 title: "IP 地址与子网划分"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/networks/exercises/ip-地址与子网划分"
 order: 171
 ---

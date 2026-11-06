@@ -1,4 +1,5 @@
 ---
+public: true
 title: "DNS 域名系统"
 series: "大二下期末复习"
 subject: "计算机网络"

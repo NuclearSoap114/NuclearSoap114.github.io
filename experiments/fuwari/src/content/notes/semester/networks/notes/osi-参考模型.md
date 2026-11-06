@@ -1,4 +1,5 @@
 ---
+public: true
 title: "OSI 参考模型"
 series: "大二下期末复习"
 subject: "计算机网络"

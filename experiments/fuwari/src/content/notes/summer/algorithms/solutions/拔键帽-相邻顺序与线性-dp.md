@@ -1,4 +1,5 @@
 ---
+public: true
 title: "拔键帽：相邻顺序与线性 DP"
 series: "2026 暑假集训"
 subject: "算法与竞赛"

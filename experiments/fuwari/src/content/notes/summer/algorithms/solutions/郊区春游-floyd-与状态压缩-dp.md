@@ -1,4 +1,5 @@
 ---
+public: true
 title: "郊区春游：Floyd 与状态压缩 DP"
 series: "2026 暑假集训"
 subject: "算法与竞赛"

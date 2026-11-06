@@ -1,8 +1,9 @@
 ---
+public: true
 title: "网络设备与 OSI 模型"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/networks/exercises/网络设备与-osi-模型"
 order: 176
 ---

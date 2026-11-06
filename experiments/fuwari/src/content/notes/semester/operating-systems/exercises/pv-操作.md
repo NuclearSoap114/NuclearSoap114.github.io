@@ -1,8 +1,9 @@
 ---
+public: true
 title: "PV 操作"
 series: "大二下期末复习"
 subject: "操作系统"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/operating-systems/exercises/pv-操作"
 order: 60
 ---

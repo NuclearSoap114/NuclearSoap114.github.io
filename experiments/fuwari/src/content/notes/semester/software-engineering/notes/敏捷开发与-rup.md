@@ -1,4 +1,5 @@
 ---
+public: true
 title: "敏捷开发与 RUP"
 series: "大二下期末复习"
 subject: "软件工程"

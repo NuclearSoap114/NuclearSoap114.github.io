@@ -1,4 +1,5 @@
 ---
+public: true
 title: "IEEE 802 与局域网概述"
 series: "大二下期末复习"
 subject: "计算机网络"

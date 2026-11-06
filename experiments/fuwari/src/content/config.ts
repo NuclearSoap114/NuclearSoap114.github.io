@@ -24,6 +24,7 @@ const specCollection = defineCollection({
 });
 const notesCollection = defineCollection({
   schema: z.object({
+    public: z.boolean().default(false),
     title: z.string(), series: z.string(), subject: z.string(), section: z.string(), order: z.number(),
   }),
 });

@@ -1,8 +1,9 @@
 ---
+public: true
 title: "特殊 IP 地址与概念"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/networks/exercises/特殊-ip-地址与概念"
 order: 174
 ---

@@ -1,8 +1,9 @@
 ---
+public: true
 title: "TCP 协议"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "题目复习"
+section: "习题解析"
 slug: "semester/networks/exercises/tcp-协议"
 order: 172
 ---

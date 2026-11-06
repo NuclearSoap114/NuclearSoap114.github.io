@@ -1,4 +1,5 @@
 ---
+public: true
 title: "数论性质与值域压缩 DP"
 series: "2026 暑假集训"
 subject: "算法与竞赛"

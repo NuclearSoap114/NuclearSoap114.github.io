@@ -1,4 +1,5 @@
 ---
+public: true
 title: "输入输出系统、中断与 DMA"
 series: "大二下期末复习"
 subject: "计算机组成原理"

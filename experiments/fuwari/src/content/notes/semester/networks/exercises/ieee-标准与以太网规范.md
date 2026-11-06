@@ -1,8 +1,9 @@
 ---
+public: true
 title: "IEEE 标准与以太网规范"
 series: "大二下期末复习"
 subject: "计算机网络"
-section: "考试题整理"
+section: "习题解析"
 slug: "semester/networks/exercises/ieee-标准与以太网规范"
 order: 180
 ---
