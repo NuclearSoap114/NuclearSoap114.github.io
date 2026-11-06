@@ -4,3 +4,12 @@
 @import './transition.css';
 @import './expressive-code.css';
 @import './photoswipe.css';
+
+/* Keep the underlying page within narrow phone viewports too. */
+.license-container > a { display:inline-block; max-width:100%; overflow-wrap:anywhere; }
+@media(max-width:380px) {
+  #navbar > .card-base { padding-inline:6px; }
+  #navbar > .card-base > a { padding-inline:6px; min-width:0; }
+  #navbar > .card-base > a > div { font-size:12px; }
+  #navbar > .card-base > a svg { width:18px; margin-right:4px; }
+}

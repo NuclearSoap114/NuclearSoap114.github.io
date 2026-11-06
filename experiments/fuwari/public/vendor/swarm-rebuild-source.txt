@@ -12,3 +12,7 @@ The blog's small loader is separate from this file.
 The browser-extension background script and privileged tab-screenshot API
 are not included. This comparison runs the upstream page animation engine
 on the blog's DOM, images, and SVGs without installing an extension.
+
+Blog adaptation: swarm-blog.js is derived from the pinned upstream file.
+It adds shared audio activation, a responsive HUD and automatic completion
+exit with cursor fade. The upstream swarm-rebuild.js remains unmodified.

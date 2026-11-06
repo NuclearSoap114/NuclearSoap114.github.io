@@ -2,7 +2,7 @@
 
 主站：https://nuclearsoap114.github.io/
 
-本站使用 Fuwari 主题，默认运行 Swarm Rebuild 原版页面动画。核心动画文件未作修改，来源和版本记录在 `experiments/fuwari/public/vendor/swarm-rebuild-source.txt`。
+本站使用 Fuwari 主题，默认运行基于 Swarm Rebuild 的页面动画，加入默认音效、移动端底栏和完成后自动退场。上游原文件保留在 `swarm-rebuild.js`，博客适配版为 `swarm-blog.js`；来源和版本记录在 `experiments/fuwari/public/vendor/swarm-rebuild-source.txt`。
 
 ## 写文章
 
@@ -24,7 +24,7 @@ npm run build
 npm run preview
 ```
 
-浏览器打开 http://127.0.0.1:4173。页面默认使用原版动画；添加 `?swarm=custom` 可对照之前独立实现的版本。
+浏览器打开 http://127.0.0.1:4173。页面默认使用博客适配版；添加 `?swarm=original` 可查看未修改的原版，`?swarm=custom` 可对照之前独立实现的版本。
 
 ## 发布
 
