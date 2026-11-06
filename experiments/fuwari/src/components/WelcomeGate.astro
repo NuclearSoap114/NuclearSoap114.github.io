@@ -1,0 +1,31 @@
+---
+import { Icon } from 'astro-icon/components';
+import { siteConfig, profileConfig } from '../config';
+import ImageWrapper from './misc/ImageWrapper.astro';
+---
+<section id="blog-welcome" class="blog-welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-description" data-pagefind-ignore data-blog-overlay>
+  <div class="welcome-shell">
+    <div class="welcome-card">
+      <div class="welcome-content">
+        <div class="welcome-brand"><span class="welcome-brand-icon"><Icon name="material-symbols:home-outline-rounded" /></span><span>{siteConfig.title}</span></div>
+        <span class="welcome-eyebrow">欢迎来到我的文字空间</span>
+        <h1 id="welcome-title">让想法，<br />一点点生长<span>。</span></h1>
+        <p id="welcome-description">先看一场小小的搭建，<br />再慢慢读这里的故事。</p>
+        <label class="welcome-sound" for="welcome-muted">
+          <span class="welcome-sound-copy"><span class="welcome-sound-title"><Icon name="material-symbols:volume-up-rounded" /><span>静音播放</span></span><span id="welcome-sound-hint">进入时播放音效</span></span>
+          <input id="welcome-muted" type="checkbox" role="switch" aria-describedby="welcome-sound-hint" />
+          <span class="welcome-switch" aria-hidden="true"></span>
+        </label>
+        <button id="welcome-enter" class="welcome-enter" type="button"><span>进入博客</span><Icon name="material-symbols:arrow-forward-rounded" /></button>
+        <p id="welcome-status" class="welcome-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="welcome-art" aria-hidden="true">
+        <ImageWrapper src={siteConfig.banner.src} alt="" class="welcome-art-image" />
+        <div class="welcome-art-caption"><span class="welcome-art-line"></span><span>{profileConfig.bio}</span></div>
+      </div>
+    </div>
+    <p class="welcome-footer">文字 · 想法 · 日常</p>
+  </div>
+</section>
+<button id="blog-replay" class="blog-replay" type="button" hidden data-pagefind-ignore data-blog-overlay aria-label="从页面顶部重播搭建动画"><Icon name="material-symbols:replay-rounded" /><span>重播动画</span></button>
+<noscript><style>.blog-welcome,#blog-replay{display:none!important}html.blog-welcome-open{overflow:auto!important}</style></noscript>

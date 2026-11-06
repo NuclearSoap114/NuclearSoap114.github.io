@@ -15,7 +15,7 @@
 
   const KEY = "__swarmRebuild";
   if (window[KEY]) {
-    window[KEY].toggle();
+    if (!window.__blogSwarmManualStart) window[KEY].toggle();
     return;
   }
 
@@ -1020,7 +1020,7 @@
     function walk(el, ctx, parent) {
       if (items.length >= MAX_ITEMS) return;
       const tag = el.localName;
-      if (SKIP.has(tag) || el === env.host) return;
+      if (SKIP.has(tag) || el === env.host || el.hasAttribute("data-blog-overlay")) return;
       const cs = css(el);
       const disp = cs.display;
       if (disp === "none") return;
@@ -3095,7 +3095,7 @@
 
   class Sound {
     constructor() {
-      this.on = soundPref;
+      this.on = typeof window.__blogSwarmMuted === "boolean" ? !window.__blogSwarmMuted : soundPref;
       this.ctx = null;
       this.bpm = 104;
       this.slots = new Map();
@@ -3176,6 +3176,8 @@
 
     setOn(on) {
       this.on = soundPref = on;
+      window.__blogSwarmMuted = !on;
+      window.dispatchEvent(new CustomEvent("blog:swarm-sound", { detail: { muted: !on } }));
       if (!this.ctx) return;
       const t = this.ctx.currentTime;
       this.out.gain.cancelScheduledValues(t);
@@ -3768,7 +3770,9 @@
         this.dead = true;
         cancelAnimationFrame(this.raf);
         for (const u of this.unbinds || []) u();
+        const restoreFocus = document.activeElement === this.view.host;
         this.view.host.remove();
+        window.dispatchEvent(new CustomEvent("blog:swarm-ended", { detail: { completed: this.complete, restoreFocus, instance: this } }));
       };
       if (reveal) {
         this.view.cursorsEl.style.transition = "opacity .65s ease";
@@ -3790,7 +3794,7 @@
         this.dead = true;
         cancelAnimationFrame(this.raf);
         for (const u of this.unbinds || []) u();
-        setTimeout(() => this.view.host.remove(), 260);
+        setTimeout(finish, 260);
       }
     }
   }
@@ -3817,7 +3821,7 @@
   function start() {
     if (app) return;
     app = new App();
-    app.run().catch((err) => console.error("[swarm-rebuild]", err));
+    app.run().catch((err) => { console.error("[swarm-rebuild]", err); stop(false); });
   }
 
   function stop(reveal) {
@@ -3854,5 +3858,5 @@
     },
     debug: { captureModel, detectEnv, Sound },
   };
-  start();
+  if (!window.__blogSwarmManualStart) start();
 })();

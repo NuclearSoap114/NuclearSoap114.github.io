@@ -2,7 +2,7 @@
 
 主站：https://nuclearsoap114.github.io/
 
-本站使用 Fuwari 主题，默认运行基于 Swarm Rebuild 的页面动画，加入默认音效、移动端底栏和完成后自动退场。上游原文件保留在 `swarm-rebuild.js`，博客适配版为 `swarm-blog.js`；来源和版本记录在 `experiments/fuwari/public/vendor/swarm-rebuild-source.txt`。
+本站使用 Fuwari 主题，先显示与主题一致的欢迎页，点击进入后运行基于 Swarm Rebuild 的页面动画。欢迎页默认不静音；完成后自动退场并显示重播按钮，重播会保留声音选择。上游原文件保留在 `swarm-rebuild.js`，博客适配版为 `swarm-blog.js`；来源和版本记录在 `experiments/fuwari/public/vendor/swarm-rebuild-source.txt`。
 
 ## 写文章
 
@@ -11,6 +11,8 @@
 - 博客名称、头像、简介、菜单：`experiments/fuwari/src/config.ts`
 - 关于页面：`experiments/fuwari/src/content/spec/about.md`
 - 图片：`experiments/fuwari/public/images/`，正文使用 `/images/example.jpg`
+- 欢迎页：`experiments/fuwari/src/components/WelcomeGate.astro`
+- 欢迎页样式：`experiments/fuwari/src/styles/welcome.css`
 - 动画启动入口：`experiments/fuwari/public/swarm-loader.js`
 
 ## 本地预览
