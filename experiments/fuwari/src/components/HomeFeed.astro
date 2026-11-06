@@ -5,7 +5,8 @@ import { getNotes,getAlgorithmCategories,getNoteTopics,categoryUrl,noteUrl,topic
 import '../styles/home.css';
 const notes=await getNotes();
 const categories=getAlgorithmCategories(notes);
-const courseTopics=getNoteTopics(notes).filter(topic=>topic.id!=='algorithms');
+const topics=getNoteTopics(notes);
+const courseTopics=topics.filter(topic=>topic.id!=='algorithms');
 const picks=homePicks.map(pick=>{
  const note=notes.find(n=>n.data.title===pick.title);
  if(!note)throw new Error(`Missing home pick: ${pick.title}`);
@@ -15,18 +16,28 @@ const [lead,...rest]=picks;
 ---
 <div class="home-feed">
  <header class="home-intro card-base">
-  <div><span class="home-eyebrow">NUCLEARSOAP / NOTEBOOK</span><h1>NuclearSoap 的笔记本</h1><p>算法、题解和课程笔记，按主题放在这里。</p></div>
-  <a href="/notes/" class="home-all">全部笔记 <span>{notes.length}</span><Icon name="material-symbols:arrow-forward-rounded"/></a>
+  <div class="home-intro-copy"><span class="home-eyebrow">NUCLEARSOAP / NOTEBOOK</span><h1>NuclearSoap 的笔记本</h1><p>算法、题解和课程笔记，按主题放在这里。</p><div class="home-intro-topics"><a href={topicUrl('algorithms')}>算法与竞赛 <Icon name="material-symbols:arrow-forward-rounded"/></a><a href="#home-courses">课程笔记 <Icon name="material-symbols:arrow-downward-rounded"/></a></div></div>
+  <a href="/notes/" class="home-all"><span class="home-notebook-count">{notes.length}<small>篇笔记 / {topics.length} 个主题</small></span><span class="home-all-link">打开目录 <Icon name="material-symbols:arrow-forward-rounded"/></span></a>
  </header>
  <section aria-labelledby="home-selected" class="home-selection">
   <div class="home-section-heading"><h2 id="home-selected">挑几篇看看</h2><span>从一个知识点开始</span></div>
   <div class="home-feature-grid">
    <a href={lead.url} class="home-feature home-article" data-home-article>
     <span class="home-article-meta">{lead.label}</span>
-    <div class="home-feature-art" aria-hidden="true"><span class="home-art-label">列状态 × 转移矩阵</span><div class="home-color-grid">{[0,1,2,0,1,2,0,1,2,0,1,2].map(color=><span class={`color-${color}`}>{color}</span>)}</div><code>f(m) = f(1) · T^(m−1)</code></div>
+    <div class="home-feature-art" aria-hidden="true"><span class="home-art-label">列状态 × 转移矩阵</span><div class="home-color-grid">{[0,1,2,0,1,2,0,1,2,0,1,2].map(color=><span class={`color-${color}`}>{color}</span>)}</div><div class="home-state-flow"><span>f(k)</span><i>→</i><b>T</b><i>→</i><span>f(k + 1)</span></div><code>f(m) = f(1) · T^(m−1)</code></div>
     <div class="home-feature-copy"><h3>{lead.title.includes('：')?<>{lead.title.split('：')[0]}：<span class="home-feature-subtitle">{lead.title.split('：').slice(1).join('：')}</span></>:lead.title}</h3><p>{lead.description}</p><span class="home-read">读这篇笔记 <Icon name="material-symbols:arrow-forward-rounded"/></span></div>
    </a>
-   <div class="home-feature-aside">{rest.slice(0,2).map((pick,i)=><a href={pick.url} class={`home-article home-short home-tone-${i}`} data-home-article><span class="home-article-meta">{pick.label}</span><h3>{pick.title}</h3><p>{pick.description}</p><span class="home-read">阅读全文 <Icon name="material-symbols:arrow-forward-rounded"/></span><span class="home-number" aria-hidden="true">0{i+2}</span></a>)}</div>
+   <div class="home-feature-aside">{rest.slice(0,2).map((pick,i)=><a href={pick.url} class={`home-article home-short home-tone-${i}`} data-home-article>
+    <span class="home-article-meta">{pick.label}<span class="home-card-index" aria-hidden="true">0{i+2}</span></span>
+    {pick.motif==='sieve' ? <div class="home-note-art home-number-art" role="img" aria-label="1 到 12 中，1、5、7、11 与 12 互质，因此欧拉函数 φ(12) 等于 4。12 有平方因子 4，因此莫比乌斯函数 μ(12) 等于 0。">
+     <div class="home-number-strip" aria-hidden="true">{Array.from({length:12},(_,i)=>i+1).map(n=><span class:list={{'is-coprime':[1,5,7,11].includes(n)}}>{n}</span>)}</div>
+     <div class="home-art-equations" aria-hidden="true"><span>φ(12) = <b>4</b></span><span>12 = 2² × 3 <i>→</i> μ(12) = <b>0</b></span></div>
+    </div> : <div class="home-note-art home-xor-art" role="img" aria-label="二进制 101 与 011 按位异或，得到 110。">
+     <div class="home-bit-expression" aria-hidden="true">{['101','⊕','011','=','110'].map((part,j)=>part.length===3 ? <span class:list={['home-bit-word',{'is-result':j===4}]}>{part.split('').map(bit=><b class:list={{'is-one':bit==='1'}}>{bit}</b>)}</span> : <span class="home-bit-operator">{part}</span>)}</div>
+     <div class="home-xor-caption" aria-hidden="true"><span>按位异或</span><span>相同为 0，不同为 1</span></div>
+    </div>}
+    <h3>{pick.title}</h3><p>{pick.description}</p><span class="home-read">阅读全文 <Icon name="material-symbols:arrow-forward-rounded"/></span>
+   </a>)}</div>
   </div>
  </section>
  <section class="home-category-section" aria-labelledby="home-algorithms">
@@ -42,7 +53,7 @@ const [lead,...rest]=picks;
   <nav class="home-course-topics" aria-labelledby="home-courses">
    {courseTopics.map(topic=><a href={topicUrl(topic.id)} class="home-course-topic">
     <Icon name={topic.icon} aria-hidden="true"/>
-    <span><strong>{topic.title}</strong><small>{topic.count} 篇</small></span>
+    <span><strong>{topic.title}</strong><small>{topic.count} 篇</small></span><span class="home-topic-arrow" aria-hidden="true">↗</span>
    </a>)}
   </nav>
  </section>
