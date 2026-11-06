@@ -1,39 +1,14 @@
 ---
-import { Icon } from "astro-icon/components";
-import { profileConfig } from "../../config";
-import { url } from "../../utils/url-utils";
-import ImageWrapper from "../misc/ImageWrapper.astro";
-
-const config = profileConfig;
+import { Icon } from 'astro-icon/components';
+import { profileConfig } from '../../config';
+import { getNotes } from '../../utils/notes';
+import ImageWrapper from '../misc/ImageWrapper.astro';
+const notes=await getNotes();
+const subjects=new Set(notes.map(n=>n.data.subject)).size;
 ---
-<div class="card-base p-3">
-    <a aria-label="Go to About Page" href={url('/about/')}
-       class="group block relative mx-auto mt-1 lg:mx-0 lg:mt-0 mb-3
-       max-w-[12rem] lg:max-w-none overflow-hidden rounded-xl active:scale-95">
-        <div class="absolute transition pointer-events-none group-hover:bg-black/30 group-active:bg-black/50
-        w-full h-full z-50 flex items-center justify-center">
-            <Icon name="fa6-regular:address-card"
-                  class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white text-5xl">
-            </Icon>
-        </div>
-        <ImageWrapper src={config.avatar || ""} alt="Profile Image of the Author" class="mx-auto lg:w-full h-full lg:mt-0 "></ImageWrapper>
-    </a>
-    <div class="px-2">
-        <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">{config.name}</div>
-        <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
-        <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
-        <div class="flex flex-wrap gap-2 justify-center mb-1">
-            {config.links.length > 1 && config.links.map(item =>
-                    <a rel="me" aria-label={item.name} href={item.url} target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90">
-                        <Icon name={item.icon} class="text-[1.5rem]"></Icon>
-                    </a>
-            )}
-            {config.links.length == 1 && <a rel="me" aria-label={config.links[0].name} href={config.links[0].url} target="_blank"
-                                            class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
-                <Icon name={config.links[0].icon} class="text-[1.5rem]"></Icon>
-                {config.links[0].name}
-            </a>}
-        </div>
-    </div>
-</div>
-
+<section class="card-base sidebar-profile">
+ <a href="/about/" class="sidebar-avatar" aria-label="关于 NuclearSoap114"><ImageWrapper src={profileConfig.avatar||''} alt="NuclearSoap114 的头像"/></a>
+ <a class="sidebar-name" href="/about/">{profileConfig.name}</a><p>{profileConfig.bio}</p>
+ <div class="profile-stats"><a href="/notes/"><strong>{notes.length}</strong><span>篇笔记</span></a><a href="/notes/"><strong>{subjects}</strong><span>个专题</span></a></div>
+ <a class="profile-github" href="https://github.com/NuclearSoap114" target="_blank" rel="me noopener noreferrer"><Icon name="fa6-brands:github"/>GitHub<Icon name="material-symbols:arrow-outward-rounded"/></a>
+</section>
