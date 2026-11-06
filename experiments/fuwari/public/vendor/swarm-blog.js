@@ -3523,9 +3523,11 @@
     }
 
     async run() {
+      const entrance = window.__blogSwarmEntrance;
       this.env = detectEnv();
       const shotP = this.loadShot();
       this.view = new View(this.env);
+      if (entrance) this.view.host.style.setProperty("z-index", "2147483646", "important");
       this.engine = new Engine(this.view);
       this.sfx = new Sound();
       this.sfx.init();
@@ -3538,7 +3540,7 @@
       this.raf = requestAnimationFrame((t) => this.frame(t));
       await nextFrame();
       this.renderSoundBtn();
-      this.sfx.intro();
+      if (!entrance) this.sfx.intro();
       this.view.bg.classList.add("on");
       this.view.intro.classList.add("on");
       this.view.hud.classList.add("on");
@@ -3573,6 +3575,13 @@
       this.engine.setModel(model);
       this.model = model;
       mark("mount");
+      if (entrance) {
+        entrance.ready();
+        await entrance.released;
+        if (this.dead) return;
+        this.view.host.style.setProperty("z-index", "2147483647", "important");
+        this.sfx.intro();
+      }
       const wait = 1500 - (performance.now() - this.t0);
       if (wait > 0) await sleep(wait);
       if (this.dead) return;

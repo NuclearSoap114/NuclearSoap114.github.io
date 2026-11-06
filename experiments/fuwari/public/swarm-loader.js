@@ -61,38 +61,69 @@
     phase = 'loading';
     replay.hidden = true;
     prepareSound();
+    let releaseEntrance;
+    let prepared;
     if (first) {
       entered = true;
       enter.disabled = true;
-      enter.querySelector('span').textContent = '正在进入…';
-      gate.classList.add('is-leaving');
-      await wait(matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 380);
-      hideGate();
+      mute.disabled = true;
+      enter.querySelector('span').textContent = '正在准备…';
+      gate.setAttribute('aria-busy', 'true');
+      status.textContent = '正在准备这场小小的搭建';
+      prepared = new Promise(resolve => {
+        window.__blogSwarmEntrance = {
+          ready: resolve,
+          released: new Promise(done => { releaseEntrance = done; }),
+        };
+      });
+      // Keep the opaque welcome above the preparing canvas; never flash the finished page.
+      releasePage();
     }
-    if (id !== serial) { closePreparedAudio(); return; }
     window.scrollTo({top:0, behavior:'instant'});
     try {
       await Promise.race([document.fonts.ready, wait(1200)]);
-      // Let the real page settle after removing the welcome screen or scrolling.
-      await frame(); await frame(); await wait(180);
-      if (id !== serial) { closePreparedAudio(); return; }
+      await frame(); await frame();
+      if (id !== serial) return;
       window.__blogSwarmManualStart = true;
       if (!window.__swarmRebuild) {
-        enginePromise ||= load('vendor/swarm-blog.js?v=7').catch(error => { enginePromise = null; throw error; });
+        enginePromise ||= load('vendor/swarm-blog.js?v=8').catch(error => { enginePromise = null; throw error; });
         await enginePromise;
       }
-      if (id !== serial) { closePreparedAudio(); return; }
-      phase = 'playing';
+      if (id !== serial) return;
       window.__swarmRebuild.start();
       activeApp = window.__swarmRebuild.app;
+      if (first) {
+        let timeout;
+        try {
+          await Promise.race([prepared, new Promise((_, reject) => {
+            timeout = setTimeout(() => reject(new Error('Animation preparation timed out')), 15000);
+          })]);
+        } finally { clearTimeout(timeout); }
+        if (id !== serial) return;
+        enter.querySelector('span').textContent = '欢迎来访';
+        status.textContent = '';
+        gate.classList.add('is-leaving');
+        await wait(matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 660);
+        hideGate();
+        gate.removeAttribute('aria-busy');
+      }
+      phase = 'playing';
+      releaseEntrance?.();
     } catch (error) {
       console.error('[blog-entrance]', error);
+      activeApp = null;
+      window.__swarmRebuild?.stop(false);
       closePreparedAudio();
+      hideGate();
       phase = 'reading';
-      status.textContent = '页面已打开，可以稍后重播动画。';
       showReplay();
+    } finally {
+      releaseEntrance?.();
+      delete window.__blogSwarmEntrance;
+      if (id !== serial) closePreparedAudio();
     }
   }
+
   window.blogEntrance = { get state() { return {phase, entered, muted}; } };
 
   // Keep the historical comparison modes directly accessible.
@@ -119,12 +150,25 @@
     });
     enter.addEventListener('click', () => play(true));
     replay.addEventListener('click', () => play());
-    gate.addEventListener('keydown', event => {
-      if (event.key !== 'Tab' || gate.hidden) return;
-      if (event.shiftKey && document.activeElement === mute) { event.preventDefault();enter.focus(); }
-      else if (!event.shiftKey && document.activeElement === enter) { event.preventDefault();mute.focus(); }
+    const qq = document.getElementById('welcome-qq');
+    qq.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(qq.dataset.qq);
+        status.textContent = 'QQ 号已复制';
+      } catch (_) { status.textContent = `QQ：${qq.dataset.qq}，可长按号码复制`; }
     });
-    enter.focus({preventScroll:true});
+    gate.addEventListener('keydown', event => {
+      if (phase === 'loading') {
+        event.stopPropagation();
+        if (event.key === 'Escape') event.preventDefault();
+      }
+      if (event.key !== 'Tab' || gate.hidden) return;
+      const controls = [...gate.querySelectorAll('a[href],button:not(:disabled),input:not(:disabled)')];
+      const first = controls[0], last = controls.at(-1);
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === gate)) { event.preventDefault();last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault();first.focus(); }
+    });
+    gate.focus({preventScroll:true});
     window.addEventListener('blog:swarm-sound', event => {
       muted = !!event.detail.muted;
       mute.checked = muted;

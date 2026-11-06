@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/avatar-github.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "NuclearSoap114",
 	bio: "记录想法、学习与生活。",
 	links: [
@@ -70,4 +70,11 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+// Only contact details explicitly approved for public display.
+export const welcomeContacts = {
+  email: "214864497@qq.com",
+  qq: "214864497",
+  codeforces: "NuclearSoap",
 };

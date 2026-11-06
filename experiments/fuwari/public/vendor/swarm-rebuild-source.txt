@@ -19,3 +19,5 @@ exit with cursor fade. The upstream swarm-rebuild.js remains unmodified.
 
 Welcome/replay integration: the blog adapter supports explicit startup,
 shared mute preferences, overlay exclusion, and completion lifecycle events.
+
+Welcome handoff: prepare the canvas beneath the welcome screen, then release playback after its exit transition.

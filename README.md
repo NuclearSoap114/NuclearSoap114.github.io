@@ -33,3 +33,5 @@ npm run preview
 提交到 `main` 后，GitHub Actions 会从 Fuwari 源码构建主站并发布到 GitHub Pages。构建结果位于 `dist/`，不提交。
 
 `public/preview/fuwari/` 保存之前已分享的对照预览，构建时一并保留。旧博客的 `content/`、`site.json` 和根目录旧静态文件不再用于主站构建。
+
+欢迎页使用 GitHub 公开头像，以及用户明确同意展示的邮箱、QQ、Codeforces（见 config.ts 的 welcomeContacts）；未加入其他个人资料。欢迎页在动画画布准备好后再退出，避免完整页面先闪现再重建。

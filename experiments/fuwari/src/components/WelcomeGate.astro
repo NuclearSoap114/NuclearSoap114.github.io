@@ -1,16 +1,21 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { siteConfig, profileConfig } from '../config';
+import { siteConfig, profileConfig, welcomeContacts } from '../config';
 import ImageWrapper from './misc/ImageWrapper.astro';
 ---
-<section id="blog-welcome" class="blog-welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-description" data-pagefind-ignore data-blog-overlay>
+<section id="blog-welcome" class="blog-welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-description" data-pagefind-ignore data-blog-overlay tabindex="-1">
   <div class="welcome-shell">
     <div class="welcome-card">
       <div class="welcome-content">
-        <div class="welcome-brand"><span class="welcome-brand-icon"><Icon name="material-symbols:home-outline-rounded" /></span><span>{siteConfig.title}</span></div>
-        <span class="welcome-eyebrow">欢迎来到我的文字空间</span>
-        <h1 id="welcome-title">让想法，<br />一点点生长<span>。</span></h1>
-        <p id="welcome-description">先看一场小小的搭建，<br />再慢慢读这里的故事。</p>
+        <div class="welcome-brand"><span class="welcome-brand-icon"><Icon name="material-symbols:home-outline-rounded" /></span><span>个人博客</span><span class="welcome-brand-note">文字与想法，慢慢生长</span></div>
+        <div class="welcome-profile"><ImageWrapper src={profileConfig.avatar || ""} alt="" class="welcome-avatar" /><div><span class="welcome-eyebrow">你好，我是</span><h1 id="welcome-title">{profileConfig.name}<span>。</span></h1></div></div>
+        <p id="welcome-description">{profileConfig.bio}<br /><span>把值得留下的瞬间，写在这里。</span></p>
+        <div class="welcome-contacts" aria-label="我的公开主页与联系方式">
+          <a href="https://github.com/NuclearSoap114" target="_blank" rel="noopener noreferrer"><Icon name="fa6-brands:github" /><span><small>GitHub</small><strong>NuclearSoap114</strong></span><Icon name="material-symbols:arrow-outward-rounded" /></a>
+          <a href={`https://codeforces.com/profile/${welcomeContacts.codeforces}`} target="_blank" rel="noopener noreferrer"><Icon name="material-symbols:leaderboard-outline-rounded" /><span><small>Codeforces</small><strong>{welcomeContacts.codeforces}</strong></span><Icon name="material-symbols:arrow-outward-rounded" /></a>
+          <a href={`mailto:${welcomeContacts.email}`}><Icon name="material-symbols:mail-outline-rounded" /><span><small>邮箱</small><strong>{welcomeContacts.email}</strong></span><Icon name="material-symbols:arrow-outward-rounded" /></a>
+          <button id="welcome-qq" type="button" data-qq={welcomeContacts.qq} aria-label={`复制 QQ 号 ${welcomeContacts.qq}`}><Icon name="fa6-brands:qq" /><span><small>QQ · 点击复制</small><strong>{welcomeContacts.qq}</strong></span><Icon name="material-symbols:content-copy-outline-rounded" /></button>
+        </div>
         <label class="welcome-sound" for="welcome-muted">
           <span class="welcome-sound-copy"><span class="welcome-sound-title"><Icon name="material-symbols:volume-up-rounded" /><span>静音播放</span></span><span id="welcome-sound-hint">进入时播放音效</span></span>
           <input id="welcome-muted" type="checkbox" role="switch" aria-describedby="welcome-sound-hint" />
@@ -21,10 +26,10 @@ import ImageWrapper from './misc/ImageWrapper.astro';
       </div>
       <div class="welcome-art" aria-hidden="true">
         <ImageWrapper src={siteConfig.banner.src} alt="" class="welcome-art-image" />
-        <div class="welcome-art-caption"><span class="welcome-art-line"></span><span>{profileConfig.bio}</span></div>
+        <span class="welcome-art-label">NUCLEARSOAP114 / NOTES</span><div class="welcome-art-caption"><span class="welcome-art-line"></span><p>保持好奇，<br />慢慢生长<span>。</span></p><span class="welcome-art-subtitle">一些想法，一些新的开始。</span></div>
       </div>
     </div>
-    <p class="welcome-footer">文字 · 想法 · 日常</p>
+    <p class="welcome-footer">欢迎来坐坐，随意翻翻。</p>
   </div>
 </section>
 <button id="blog-replay" class="blog-replay" type="button" hidden data-pagefind-ignore data-blog-overlay aria-label="从页面顶部重播搭建动画"><Icon name="material-symbols:replay-rounded" /><span>重播动画</span></button>
