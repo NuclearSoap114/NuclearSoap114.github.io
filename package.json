@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "NuclearSoap114 的 Fuwari 博客与 Swarm Rebuild 动画",
   "scripts": {
-    "build": "pnpm --dir experiments/fuwari build && node scripts/build.mjs",
+    "build": "pnpm --dir experiments/fuwari build && node scripts/build.mjs && npm --prefix experiments/chirpy run build",
     "preview": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
     "check": "pnpm --dir experiments/fuwari check"
   },

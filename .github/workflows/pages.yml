@@ -24,7 +24,9 @@ jobs:
           cache: pnpm
           cache-dependency-path: experiments/fuwari/pnpm-lock.yaml
       - run: pnpm --dir experiments/fuwari install --frozen-lockfile
+      - run: npm ci --prefix experiments/chirpy --no-audit --no-fund
       - run: npm run build
+      - run: npm --prefix experiments/chirpy run check
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

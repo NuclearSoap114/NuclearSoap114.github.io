@@ -1,0 +1,14 @@
+{
+  "name": "nuclearsoap-chirpy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node check.mjs"
+  },
+  "dependencies": {
+    "cheerio": "1.2.0",
+    "esbuild": "0.25.12",
+    "swup": "4.8.2"
+  }
+}
