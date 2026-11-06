@@ -1,0 +1,1 @@
+import"./zh_TW.DjMBhSZM.js";function u(e,r){const n=e.replace(/^\/|\/$/g,"").toLowerCase(),o=r.replace(/^\/|\/$/g,"").toLowerCase();return n===o}function t(...e){return e.join("/").replace(/\/+/g,"/")}function s(e){return a(`/posts/${e}/`)}function a(e){return t("","/preview/fuwari/",e)}export{s as g,u as p,a as u};

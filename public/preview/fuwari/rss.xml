@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>NuclearSoap114</title><description>文字与想法，慢慢生长</description><link>https://nuclearsoap114.github.io/</link><language>zh_CN</language><item><title>让页面，一点点生长。</title><link>https://nuclearsoap114.github.io/preview/fuwari/posts/markdown-extended/</link><guid isPermaLink="true">https://nuclearsoap114.github.io/preview/fuwari/posts/markdown-extended/</guid><description>一次光标协作实验：从一张空白画布，到一篇可以阅读的文章。</description><pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;从空白开始&lt;/h2&gt;
+&lt;p&gt;你看到的这篇文章，是博客的交互效果演示。几个彩色光标会分工协作：铺开卡片、放入图片，再把文字一行行写下来。&lt;/p&gt;
+&lt;p&gt;页面的布局来自 &lt;strong&gt;Fuwari&lt;/strong&gt;，光标动画为这个博客独立实现。背景、卡片和排版保留主题原本的样子，让动画结束后，阅读仍然是主角。&lt;/p&gt;
+&lt;p&gt;:::tip[试着往下滚动]
+光标会跟着阅读进度，继续搭建下方内容。想直接读文章，可以随时点击底部的「跳过」。
+:::&lt;/p&gt;
+&lt;h2&gt;一起把想法搭出来&lt;/h2&gt;
+&lt;p&gt;一张卡片先被画出轮廓，再填入底色。标题出现，段落接上，细小的标签也找到自己的位置。&lt;/p&gt;
+&lt;p&gt;它模拟的是一次轻松的协作过程。你不需要安装扩展，也不用登录；打开网页，就能看到这场小小的搭建。&lt;/p&gt;
+&lt;p&gt;:::note[四个光标，一起工作]
+蓝色、紫色、橙色和绿色的光标会各自领取任务。它们不是在线访客，而是运行在当前页面里的动画。
+:::&lt;/p&gt;
+&lt;h3&gt;留下适合阅读的页面&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可以跳过&lt;/strong&gt;：立即显示完整页面，直接开始阅读。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可以重播&lt;/strong&gt;：回到页面顶部，再看一遍搭建过程。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可以调速&lt;/strong&gt;：在 1×、2×、3× 之间切换。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可以自动导览&lt;/strong&gt;：页面缓缓下移，光标接着搭建。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;文字与代码&lt;/h3&gt;
+&lt;p&gt;代码块也可以参与搭建。动画结束后，复制按钮仍然能够正常使用。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;const idea = &quot;把一个想法，慢慢做出来。&quot;;
+
+function write() {
+  return idea;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;让动效适可而止&lt;/h2&gt;
+&lt;p&gt;动画是一段开场，不应该成为阅读的门槛。手机上会减少光标数量；如果你的系统偏好减少动态效果，页面会直接显示完整内容。&lt;/p&gt;
+&lt;p&gt;:::important[内容始终在这里]
+即使关闭 JavaScript，正文也可以正常阅读。光标动画只改变呈现过程，不负责加载文章。
+:::&lt;/p&gt;
+&lt;h2&gt;下一篇，写你的故事&lt;/h2&gt;
+&lt;p&gt;这一页仅用于查看主题、中文排版和光标动画。之后可以换成自己的文章，让每一个新想法都有地方落下。&lt;/p&gt;
+&lt;p&gt;主题来源：&lt;a href=&quot;https://github.com/saicaca/fuwari&quot;&gt;Fuwari&lt;/a&gt;。视觉参考：&lt;a href=&quot;https://fuwari.vercel.app/posts/markdown-extended/&quot;&gt;Markdown Extended Features&lt;/a&gt;。&lt;/p&gt;
+</content:encoded></item></channel></rss>
