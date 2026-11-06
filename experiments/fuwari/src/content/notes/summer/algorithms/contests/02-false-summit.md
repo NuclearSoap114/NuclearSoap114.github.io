@@ -2,7 +2,7 @@
 title: "02 False Summit"
 series: "2026 暑假集训"
 subject: "算法与竞赛"
-section: "比赛记录"
+section: "学习"
 slug: "summer/algorithms/contests/02-false-summit"
 order: 18
 ---

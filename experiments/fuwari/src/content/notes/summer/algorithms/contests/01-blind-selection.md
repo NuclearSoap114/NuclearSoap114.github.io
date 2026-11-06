@@ -2,7 +2,7 @@
 title: "01 Blind Selection"
 series: "2026 暑假集训"
 subject: "算法与竞赛"
-section: "比赛记录"
+section: "学习"
 slug: "summer/algorithms/contests/01-blind-selection"
 order: 17
 ---

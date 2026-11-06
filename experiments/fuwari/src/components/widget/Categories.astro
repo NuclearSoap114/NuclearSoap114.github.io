@@ -1,10 +1,11 @@
 ---
-import { getNotes,subjectIds } from '../../utils/notes';
+import { getNotes,subjectIds,getAlgorithmCategories,categoryUrl } from '../../utils/notes';
 import WidgetLayout from './WidgetLayout.astro';
 const notes=await getNotes();
+const algorithmGroups=getAlgorithmCategories(notes);
 const subjects=Object.keys(subjectIds).map(name=>({name,count:notes.filter(n=>n.data.subject===name).length})).filter(s=>s.count);
 interface Props { class?: string; style?: string; }
 ---
 <WidgetLayout name="笔记分类" id="categories" class={Astro.props.class} style={Astro.props.style}>
- <nav class="study-categories" aria-label="按课程与专题浏览笔记">{subjects.map(s=><a href={`/notes/#${subjectIds[s.name]}`}><span>{s.name}</span><small>{s.count}</small></a>)}</nav>
+ <nav class="study-categories" aria-label="按课程与专题浏览笔记">{subjects.map(s=><div><a href={`/notes/#${subjectIds[s.name]}`}><span>{s.name}</span><small>{s.count}</small></a>{s.name==='算法与竞赛'&&<div class="study-subcategories">{algorithmGroups.map(c=><a href={categoryUrl(c.name)}><span>{c.name}</span><small>{c.count}</small></a>)}</div>}</div>)}</nav>
 </WidgetLayout>

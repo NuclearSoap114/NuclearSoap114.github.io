@@ -2,7 +2,7 @@
 title: "最大流与 Dinic 入门"
 series: "2026 暑假集训"
 subject: "算法与竞赛"
-section: "解题方法"
+section: "算法"
 slug: "summer/algorithms/methods/最大流与-dinic-入门"
 order: 35
 ---

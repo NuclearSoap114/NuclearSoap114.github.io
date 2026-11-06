@@ -14,7 +14,7 @@ export function getNoteTags(note: { data: { title: string; series: string; subje
  if(/树状数组|线性基|笛卡尔树/.test(title))tags.push('数据结构');
  if(/莫比乌斯|欧拉|容斥|数论|整数分块|整除分块|线性筛|矩阵/.test(title))tags.push('数论与组合');
  if(/概率|期望/.test(title))tags.push('概率与期望');
- if(section==='学习记录')tags.push('做题复盘');
+ if(section==='学习')tags.push('做题复盘');
  return tags;
 }
 export function getNoteTagCounts(notes: Awaited<ReturnType<typeof getNotes>>) {
@@ -24,3 +24,14 @@ export function getNoteTagCounts(notes: Awaited<ReturnType<typeof getNotes>>) {
  return order.filter(tag=>counts.has(tag)).map(name=>({name,count:counts.get(name)!}));
 }
 export function tagUrl(tag:string) { return '/notes/?tag='+encodeURIComponent(tag); }
+
+export const algorithmCategories = [
+ {name:'算法',id:'algorithm',description:'知识点、常用模型与代码模板',icon:'material-symbols:account-tree-outline-rounded'},
+ {name:'tricker',id:'tricker',description:'做题时积累的技巧和转化',icon:'material-symbols:lightbulb-outline-rounded'},
+ {name:'题解',id:'solutions',description:'具体题目的思路与实现',icon:'material-symbols:code-rounded'},
+ {name:'学习',id:'learning',description:'训练清单、计划和复盘',icon:'material-symbols:edit-note-rounded'},
+] as const;
+export function categoryUrl(category: string) { return '/notes/?category='+encodeURIComponent(category); }
+export function getAlgorithmCategories(notes: Awaited<ReturnType<typeof getNotes>>) {
+ return algorithmCategories.map(category=>({...category,count:notes.filter(n=>n.data.subject==='算法与竞赛'&&n.data.section===category.name).length}));
+}

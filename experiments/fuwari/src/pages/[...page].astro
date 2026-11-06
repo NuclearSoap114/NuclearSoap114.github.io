@@ -1,6 +1,6 @@
 ---
 import "../styles/notebook.css";
-import { getNotes } from "../utils/notes";
+import HomeFeed from "../components/HomeFeed.astro";
 import type { GetStaticPaths } from "astro";
 import Pagination from "../components/control/Pagination.astro";
 import PostPage from "../components/PostPage.astro";
@@ -17,11 +17,11 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 
 const len = page.data.length;
-const notes = await getNotes();
+
 ---
 
 <MainGridLayout>
-    {page.currentPage === 1 && <section class="notebook notebook-card"><span class="notebook-kicker">学习记录</span><h2>我的笔记</h2><div class="notebook-collections"><a class="notebook-collection" href="/notes/#summer"><strong>2026 暑假集训</strong><span>{notes.filter(n=>n.data.series==='2026 暑假集训').length} 篇 · 算法专题、补题与复盘</span></a><a class="notebook-collection" href="/notes/#semester"><strong>大二下期末复习</strong><span>{notes.filter(n=>n.data.series==='大二下期末复习').length} 篇 · 课程笔记与例题</span></a></div></section>}
+    {page.currentPage === 1 && <HomeFeed />}
     <PostPage page={page}></PostPage>
-    <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>
+    {page.lastPage > 1 && <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>}
 </MainGridLayout>

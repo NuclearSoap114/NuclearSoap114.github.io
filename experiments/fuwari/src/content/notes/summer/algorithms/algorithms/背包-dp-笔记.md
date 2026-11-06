@@ -2,7 +2,7 @@
 title: "背包 DP 笔记"
 series: "2026 暑假集训"
 subject: "算法与竞赛"
-section: "算法笔记"
+section: "算法"
 slug: "summer/algorithms/algorithms/背包-dp-笔记"
 order: 12
 ---

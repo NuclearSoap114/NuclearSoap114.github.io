@@ -2,7 +2,7 @@
 title: "04 Zero Mercy"
 series: "2026 暑假集训"
 subject: "算法与竞赛"
-section: "比赛记录"
+section: "学习"
 slug: "summer/algorithms/contests/04-zero-mercy"
 order: 20
 ---

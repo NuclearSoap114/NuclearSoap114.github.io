@@ -1,7 +1,7 @@
 ---
 import Markdown from '@components/misc/Markdown.astro';
 import MainGridLayout from '../../layouts/MainGridLayout.astro';
-import { getNotes,noteUrl,subjectIds,getNoteTags,tagUrl } from '../../utils/notes';
+import { getNotes,noteUrl,subjectIds,getNoteTags,tagUrl,categoryUrl } from '../../utils/notes';
 import '../../styles/notebook.css';
 export async function getStaticPaths(){
  const all=await getNotes();return all.map(entry=>{
@@ -14,7 +14,7 @@ const {entry,prev,next}=Astro.props;const {Content,headings}=await entry.render(
 <MainGridLayout title={entry.data.title} description={`${entry.data.series} · ${entry.data.subject} · ${entry.data.title}`} headings={headings}>
  <div class="notebook">
   <article class="notebook-card" data-pagefind-body>
-   <nav class="note-breadcrumb" aria-label="当前位置"><a href="/notes/">笔记</a><span>/</span><a href={`/notes/#${subjectIds[entry.data.subject]}`}>{entry.data.subject}</a><span>/</span><span>{entry.data.section}</span></nav>
+   <nav class="note-breadcrumb" aria-label="当前位置"><a href="/notes/">笔记</a><span>/</span><a href={`/notes/#${subjectIds[entry.data.subject]}`}>{entry.data.subject}</a><span>/</span>{entry.data.subject==='算法与竞赛'?<a href={categoryUrl(entry.data.section)}>{entry.data.section}</a>:<span>{entry.data.section}</span>}</nav>
    <h1 data-pagefind-meta="title" data-pagefind-weight="10">{entry.data.title}</h1>
    <div class="note-meta"><span>{entry.data.series}</span><span>{entry.data.section}</span></div>
    <div class="note-inline-tags" aria-label="笔记标签">{getNoteTags(entry).map(tag=><a href={tagUrl(tag)}>{tag}</a>)}</div>

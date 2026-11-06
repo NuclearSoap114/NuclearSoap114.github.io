@@ -79,3 +79,14 @@
  .note-meta { margin:14px 0 20px; }
  .note-reading { font-size:15px; }
 }
+.study-subcategories { margin:0 0 8px 18px;border-left:1px solid var(--surface-border);padding-left:7px; }
+.study-subcategories a { min-height:36px;font-size:12px;color:var(--reading-muted); }
+.notes-category-filter { display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:24px; }
+.notes-category-filter>span { font-size:13px;font-weight:600;margin-right:6px; }
+.notes-category-filter button { display:inline-flex;align-items:center;gap:8px;padding:9px 12px;min-height:44px;border:1px solid var(--surface-border);border-radius:10px;font-size:13px; }
+.notes-category-filter button small { font-size:11px;opacity:.8; }
+.notes-category-filter button:hover { background:var(--btn-regular-bg); }
+.notes-category-filter button[aria-pressed=true] { color:var(--card-bg);background:var(--btn-content);border-color:var(--btn-content); }
+#summer .notes-subject:not([open]) { grid-column:auto; }
+#algorithms,.notes-subject { scroll-margin-top:100px; }
+@media(max-width:700px) { .notes-category-filter>span { width:100%; }.notes-category-filter { gap:6px; }.notes-category-filter button { padding:8px 10px; } }

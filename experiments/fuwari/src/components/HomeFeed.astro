@@ -1,0 +1,41 @@
+---
+import { Icon } from 'astro-icon/components';
+import { homePicks } from '../data/home-picks';
+import { getNotes,getAlgorithmCategories,categoryUrl,noteUrl } from '../utils/notes';
+import '../styles/home.css';
+const notes=await getNotes();
+const categories=getAlgorithmCategories(notes);
+const picks=homePicks.map(pick=>{
+ const note=notes.find(n=>n.data.title===pick.title);
+ if(!note)throw new Error(`Missing home pick: ${pick.title}`);
+ return {...pick,url:noteUrl(note.slug)};
+});
+const [lead,...rest]=picks;
+---
+<div class="home-feed">
+ <header class="home-intro card-base">
+  <div><span class="home-eyebrow">NUCLEARSOAP114 / NOTEBOOK</span><h1>解题思路，学习笔记。</h1><p>记录做过的题，也整理学过的东西。</p></div>
+  <a href="/notes/" class="home-all">全部笔记 <span>{notes.length}</span><Icon name="material-symbols:arrow-forward-rounded"/></a>
+ </header>
+ <section aria-labelledby="home-selected" class="home-selection">
+  <div class="home-section-heading"><h2 id="home-selected">挑几篇看看</h2><span>从一个知识点开始</span></div>
+  <div class="home-feature-grid">
+   <a href={lead.url} class="home-feature home-article" data-home-article>
+    <span class="home-article-meta">{lead.label}</span>
+    <div class="home-dp-art" aria-hidden="true"><span class="home-art-label">0 / 1 KNAPSACK</span><div class="home-dp-cells">{[0,0,3,4,4,7,8,9,11,11,14,15].map((n,i)=><span class:list={{filled:i>6}}>{n}</span>)}</div><code>dp[j] = max(dp[j], dp[j - w] + v)</code></div>
+    <div class="home-feature-copy"><h3>{lead.title}</h3><p>{lead.description}</p><span class="home-read">读这篇笔记 <Icon name="material-symbols:arrow-forward-rounded"/></span></div>
+   </a>
+   <div class="home-feature-aside">{rest.slice(0,2).map((pick,i)=><a href={pick.url} class={`home-article home-short home-tone-${i}`} data-home-article><span class="home-article-meta">{pick.label}</span><h3>{pick.title}</h3><p>{pick.description}</p><span class="home-read">阅读全文 <Icon name="material-symbols:arrow-forward-rounded"/></span><span class="home-number" aria-hidden="true">0{i+2}</span></a>)}</div>
+  </div>
+ </section>
+ <section class="home-category-section" aria-labelledby="home-algorithms">
+  <div class="home-section-heading"><h2 id="home-algorithms">算法笔记</h2><a href="/notes/#algorithms">查看目录 <Icon name="material-symbols:arrow-forward-rounded"/></a></div>
+  <nav class="home-categories" aria-label="算法笔记分类">{categories.map((c,i)=><a href={categoryUrl(c.name)} class={`home-category home-category-${i}`}><div class="home-category-top"><Icon name={c.icon}/><span>{c.count} 篇</span></div><strong>{c.name}</strong><p>{c.description}</p></a>)}</nav>
+ </section>
+ <section aria-labelledby="home-more">
+  <div class="home-section-heading"><h2 id="home-more">再翻几页</h2><span>算法之外，也有课程笔记</span></div>
+  <div class="home-more-grid">{rest.slice(2).map(pick=><a href={pick.url} class={`home-article home-more home-${pick.motif}`} data-home-article><div class="home-mini-art" aria-hidden="true">{pick.motif==='xor'?<><code>101</code><span>⊕</span><code>011</code><span>=</span><code>110</code></>:pick.motif==='network'?<svg viewBox="0 0 240 64" fill="none"><path d="M12 52H228M12 52V8" stroke="currentColor" opacity=".25"/><path d="M20 49L42 45L64 37L86 21L108 17L130 13L152 9L158 33L180 29L202 25L224 21" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>:<><span>P(A | B)</span><span class="home-probability-arrow">↔</span><span>P(B | A)</span></>}</div><div class="home-more-copy"><span class="home-article-meta">{pick.label}</span><h3>{pick.title}</h3><p>{pick.description}</p><span class="home-read">阅读全文 <Icon name="material-symbols:arrow-forward-rounded"/></span></div></a>)}</div>
+ </section>
+ <a href="/notes/#semester" class="home-course-strip card-base"><div class="home-course-icon"><Icon name="material-symbols:menu-book-outline-rounded"/></div><div><span class="home-eyebrow">课程笔记</span><h2>大二下期末复习</h2><p>计算机网络、操作系统、概率论……按课程慢慢翻。</p></div><span class="home-course-count">173 篇 <Icon name="material-symbols:arrow-forward-rounded"/></span></a>
+ <div class="home-section-heading home-blog-heading"><h2>关于这个博客</h2><span>搭建记录与交互实验</span></div>
+</div>
