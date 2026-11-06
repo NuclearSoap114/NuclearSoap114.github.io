@@ -1,7 +1,7 @@
-/* Select the unmodified upstream engine for the explicit comparison URL. */
+/* Run the unmodified upstream engine by default on the main blog. */
 (() => {
   const base = new URL('.', document.currentScript.src);
-  const original = new URLSearchParams(location.search).get('swarm') === 'original';
+  const original = new URLSearchParams(location.search).get('swarm') !== 'custom';
   function script(path) {
     const tag = document.createElement('script');
     tag.src = new URL(path, base).href;

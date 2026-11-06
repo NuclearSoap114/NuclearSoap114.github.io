@@ -1,4 +1,7 @@
 ---
+import "../styles/global.css";
+import "../styles/variables.styl";
+import "../styles/markdown-extend.styl";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
@@ -154,7 +157,7 @@ const bannerOffset =
 	>
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
-        <script is:inline src={url("/swarm-loader.js?v=4")} defer></script>
+        <script is:inline src={url("/swarm-loader.js?v=5")} defer></script>
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>

@@ -1,10 +1,11 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "NuclearSoap114 的个人博客",
+  "description": "NuclearSoap114 的 Fuwari 博客与 Swarm Rebuild 动画",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "preview": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist"
+    "build": "pnpm --dir experiments/fuwari build && node scripts/build.mjs",
+    "preview": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
+    "check": "pnpm --dir experiments/fuwari check"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,6 @@
     "url": "https://github.com/NuclearSoap114/NuclearSoap114.github.io/issues"
   },
   "homepage": "https://github.com/NuclearSoap114/NuclearSoap114.github.io#readme",
-  "dependencies": {
-    "gray-matter": "^4.0.3",
-    "marked": "^18.1.3"
-  },
-  "private": true
+  "private": true,
+  "packageManager": "pnpm@9.14.4"
 }
