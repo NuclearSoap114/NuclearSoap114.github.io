@@ -1,0 +1,14 @@
+Swarm Rebuild — upstream comparison build
+Author/repository: DhvanilPatel/swarm-cursors
+Source: https://github.com/DhvanilPatel/swarm-cursors/blob/e4746a5a99cea0031a30aa886350f2d4b1facc33/swarm-rebuild/swarm.js
+Revision: e4746a5a99cea0031a30aa886350f2d4b1facc33
+SHA-256: 6a30f19daaa182d52673035feaeae775c398fa426655cc71a87a451fe00c7bfe
+
+swarm-rebuild.js is an unmodified copy of the upstream file, retained here
+for an explicitly requested comparison on this blog. No license grant is
+asserted by this notice. Upstream credits Joel Califa's original Swarm.
+The blog's small loader is separate from this file.
+
+The browser-extension background script and privileged tab-screenshot API
+are not included. This comparison runs the upstream page animation engine
+on the blog's DOM, images, and SVGs without installing an extension.
